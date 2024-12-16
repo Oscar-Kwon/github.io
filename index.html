@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>럭키스팟 오늘의 운세</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #000428, #0E5B78);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Pretendard, sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        h1 {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            color: #f4f4f4;
+            z-index: 10;
+            text-align: center;
+        }
+
+        #shareButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 0.7rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 30;
+            transition: background-color 0.3s ease;
+        }
+
+        #shareButton:hover {
+            background-color: #111;
+        }
+
+        #drawButton, #fortuneButton {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background-color: #33C6FF;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            z-index: 20;
+            margin: 20px;
+        }
+
+        #lottiePlayer {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 25;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        #drawButton:hover, #fortuneButton:hover {
+            background-color: #0E5B78;
+        }
+        #fortuneResult {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: #333;
+            z-index: 15;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.1s ease forwards;
+            background-color: white;
+            padding: 20px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            animation: none;
+        }
+
+        #remainingTime {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            color: #33C6FF;
+            z-index: 15;
+            text-align: center;
+            display: none;
+            opacity: 95%;
+        }
+
+        .dim-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 14;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        #mainImage {
+            position: absolute;
+            top: 55%;
+            left: 52%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            width: 250px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="spaceCanvas"></canvas>
+    <img id="mainImage" src="mainimage02.png" alt="Main Image">
+    <button id="shareButton">공유하기</button>
+    <h1></h1>
+    <button id="drawButton">Draw a Star!</button>
+    <button id="fortuneButton">행운의 메시지 뽑기</button>
+    <div id="fortuneResult"></div>
+    <div id="remainingTime"></div>
+    <div class="dim-overlay"></div>
+    <iframe id="lottiePlayer" src="https://lottie.host/embed/8becdbdb-adca-46b9-8c68-50c6791472a2/RGyKarqPug.lottie" width="300" height="300" style="display:none;" onload="this.contentWindow.addEventListener('complete', function() { showFortuneResult(); })"></iframe>
+
+    <script>
+        const canvas = document.getElementById('spaceCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+        const numStars = 300;
+        const fortunes = [
+           "작은 성취를 축하하며 하루를 시작하세요",
+            "오늘은 새로운 사람에게 다가가 보세요",
+            "머릿속으로만 고민하지 말고 한 걸음 내디뎌 보세요", 
+            "예상 밖의 일이 좋은 기회를 가져올 수 있습니다",
+            "마음이 가는 대로 선택해도 괜찮은 날입니다",
+            "오래된 고민을 내려놓기에 좋은 날입니다",
+            "작지만 의미 있는 변화가 오늘 당신을 기다리고 있습니다",
+            "새로운 취미를 시작해보기에 완벽한 날입니다",
+            "오늘은 꾸밈없이 솔직한 모습이 빛날 날입니다",
+            "진심 어린 말을 건넨다면 좋은 일이 생길 것입니다",
+            "어제보다 나은 오늘을 위해 작은 노력을 더해보세요",
+            "기분 전환이 필요한 날, 산책이 답일 수 있습니다",
+            "오래 미뤄뒀던 일을 시작하면 좋은 날입니다",
+            "타인의 기대보다는 자신의 마음을 따라가세요",
+            "오늘의 실패는 내일의 성공을 위한 준비 과정입니다",
+            "새로운 루틴을 만들어보세요",
+            "자신을 믿고 한 걸음 더 나아가 보세요",
+            "긍정적인 마음이 행운을 불러옵니다",
+            "잠시 멈춰서 지금 가진 것에 감사해보세요",
+            "실수를 두려워하지 않는다면 성장할 기회가 보일 것입니다",
+            "오늘은 평소와 다른 선택이 놀라운 결과를 가져올 수 있습니다",
+            "대화가 필요한 날, 소중한 사람에게 연락해보세요",
+            "목표를 향해 달리는 것도 좋지만 잠깐 쉬어가는 것도 필요합니다",
+            "새롭게 배우는 즐거움이 당신을 기다리고 있습니다",
+            "당신의 진심이 사람들의 마음에 닿을 것입니다",
+            "중요한 결정을 미루지 말고 직감에 따라 움직이세요",
+            "오늘의 작은 노력이 큰 결실로 돌아올 것입니다",
+            "용기를 내어 평소 하지 않던 말을 해보세요",
+            "주변의 도움을 요청하는 것도 용기입니다",
+            "예상치 못한 곳에서 영감을 찾을 수 있는 날입니다",
+            "문제 해결의 실마리는 가까운 곳에 있습니다",
+            "조금 더 웃어보세요, 좋은 일이 생길 것입니다",
+            "오늘은 평소와 다른 경로를 선택해 보세요",
+            "새로운 시작을 두려워하지 마세요",
+            "과거의 실수를 복기하며 더 나은 방향을 모색하세요",
+            "자신에게 작은 선물을 해보세요",
+            "오늘은 마음의 짐을 내려놓고 쉬어가는 날로 삼으세요",
+            "느긋함 속에서 답을 찾을 수 있습니다",
+            "당신의 노력이 누군가에게 영감을 줄 것입니다",
+            "무심코 지나쳤던 것에서 행복을 발견하세요",
+            "말보다 행동이 빛을 발하는 날입니다",
+            "오래된 물건을 정리하며 새로운 기운을 받아보세요",
+            "당신의 결단력이 빛날 날입니다",
+            "실패를 두려워하지 않는다면 모든 것이 도전이 됩니다",
+            "마음을 열고 새로운 의견을 받아들여 보세요",
+            "웃음이 필요할 때는 유머를 나눠보세요",
+            "오늘은 작은 선행이 큰 보답으로 돌아올 수 있습니다",
+            "멀리 있는 목표보다 가까운 행복을 먼저 느껴보세요",
+            "직관을 믿어도 좋은 날입니다",
+            "마음을 비우고 새로운 것을 받아들일 준비를 하세요",
+            "계획했던 일을 시작하기 딱 좋은 날입니다",
+            "자연과 교감하며 휴식을 취해보세요",
+            "작은 변화가 인생의 전환점이 될 수 있습니다",
+            "사랑하는 사람들에게 마음을 표현해보세요",
+            "오늘의 노력은 내일의 결실로 이어질 것입니다",
+            "어려운 결정은 천천히 시간을 두고 내려보세요",
+            "아침을 활기차게 시작하면 하루가 달라질 것입니다",
+            "모험을 즐길 준비를 해보세요",
+            "기회는 준비된 자에게 찾아옵니다",
+            "감정을 정리할 시간을 가져보세요",
+            "자신감을 가지면 어떤 도전도 극복할 수 있습니다",
+            "오늘은 새로운 목표를 세우기에 좋은 날입니다",
+            "사소한 일에도 성실함을 잃지 마세요",
+            "음악으로 마음을 치유해보세요",
+            "관심 있는 책을 읽으며 지식을 넓혀보세요",
+            "좋은 사람들과의 대화가 큰 힘이 될 것입니다",
+            "하루를 감사의 마음으로 마무리하세요",
+            "어려운 상황 속에서도 희망을 잃지 마세요",
+            "오늘은 스스로를 격려하는 말을 해보세요",
+            "작은 즐거움을 찾아보세요",
+            "다른 시각에서 문제를 바라보면 해결책이 보일 것입니다",
+            "새로운 경험을 통해 성장할 기회를 얻으세요",
+            "불안감을 내려놓고 지금에 집중하세요",
+            "운이 따라주는 날이니 하고 싶은 일을 시도해보세요",
+            "가볍게 운동하며 활력을 되찾아보세요",
+            "지금 떠오른 아이디어를 메모해두세요",
+            "오랜만에 좋아하는 음식을 즐겨보세요",
+            "하루의 끝에 자신을 칭찬해보세요",
+            "사소한 친절이 세상을 밝게 만듭니다",
+            "다른 사람의 이야기에 귀를 기울여보세요",
+            "당신이 이루고자 하는 목표에 한 걸음 더 다가가세요",
+            "불필요한 걱정은 잠시 접어두세요",
+            "소소한 성공이 더 큰 자신감을 가져다줍니다",
+            "오늘은 새로운 습관을 만들기 좋은 날입니다",
+            "지금 하고 있는 일이 곧 보람으로 다가올 것입니다",
+            "타인의 인정을 기다리기보다 스스로를 인정하세요",
+            "소중한 순간들을 기록으로 남겨보세요",
+            "언제나 최선을 다하는 당신의 모습이 멋집니다",
+            "행운은 생각지 못한 순간에 찾아옵니다",
+            "마음속 바람을 현실로 만들기 위한 노력을 시작하세요",
+            "잠깐의 실패가 당신의 가치를 떨어뜨리지 않습니다",
+            "평소와 다른 장소에서 새로운 영감을 얻어보세요",
+            "당신의 선택이 당신의 길을 밝힐 것입니다"
+        ];
+
+        // 공유하기 버튼 기능 추가
+        document.getElementById('shareButton').addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert('URL 정보가 복사되었습니다');
+            } catch (err) {
+                console.error('URL 복사 실패:', err);
+            }
+        });
+
+        function updateRemainingTime(savedTime) {
+            const remainingTimeDiv = document.getElementById('remainingTime');
+            const currentTime = new Date();
+            const tomorrow = new Date();
+            tomorrow.setHours(24, 0, 0, 0);
+            const timeDiff = tomorrow - currentTime;
+
+            if (timeDiff > 0) {
+                const hours = Math.floor(timeDiff / (60 * 60 * 1000));
+                const minutes = Math.floor((timeDiff % (60 * 60 * 1000)) / (60 * 1000));
+                const seconds = Math.floor((timeDiff % (60 * 1000)) / 1000);
+
+                remainingTimeDiv.textContent = `다음 뽑기까지 남은 시간: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                remainingTimeDiv.style.display = 'block';
+                setTimeout(() => updateRemainingTime(savedTime), 1000);
+            } else {
+                remainingTimeDiv.style.display = 'none';
+                localStorage.removeItem(`${ip}_time`);
+                localStorage.removeItem(`${ip}_fortune`);
+            }
+        }
+
+        function handleFortuneClick() {
+            const lottiePlayer = document.getElementById('lottiePlayer');
+            const fortuneResult = document.getElementById('fortuneResult');
+            const dimOverlay = document.querySelector('.dim-overlay');
+            
+            // dim 배경과 로티 애니메이션 표시
+            dimOverlay.style.display = 'block';
+            lottiePlayer.style.display = 'block';
+
+            // 랜덤 운세 선택
+            const randomIndex = Math.floor(Math.random() * fortunes.length);
+            const randomFortune = fortunes[randomIndex];
+
+            // Lottie 애니메이션이 끝나는 시점을 감지
+            lottiePlayer.contentWindow.addEventListener('complete', () => {
+                // 애니메이션이 끝나면 Lottie 숨기고 결과 표시
+                lottiePlayer.style.display = 'none';
+                fortuneResult.style.display = 'block';
+                fortuneResult.textContent = randomFortune;
+
+                fortuneResult.style.opacity = "0";
+                fortuneResult.style.animation = "none";
+                setTimeout(() => {
+                    fortuneResult.style.animation = "fadeIn 2s ease forwards";
+                }, 10);
+
+                // dim 배경 제거
+                dimOverlay.style.display = 'none';
+            });
+        }
+
+        class Star {
+            constructor(x, y, radius, speed) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.speed = speed;
+                this.opacity = Math.random();
+                this.twinkleSpeed = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.y += this.speed;
+                if (this.y > canvas.height) {
+                    this.y = 0 - this.radius;
+                    this.x = Math.random() * canvas.width;
+                }
+                this.opacity += this.twinkleSpeed;
+                if (this.opacity > 1 || this.opacity < 0) {
+                    this.twinkleSpeed *= -1;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = 'white';
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        function createStars() {
+            for (let i = 0; i < numStars; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.random() * 2;
+                const speed = Math.random() * 2 + 0.5;
+                stars.push(new Star(x, y, radius, speed));
+            }
+        }
+
+        function addStar(x, y) {
+            const radius = Math.random() * 2 + 2;
+            const speed = Math.random() * 2 + 0.5;
+            stars.push(new Star(x, y, radius, speed));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach((star) => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        function getIPAddress() {
+            return new Promise((resolve, reject) => {
+                fetch('https://api64.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => resolve(data.ip))
+                    .catch(error => reject(error));
+            });
+        }
+
+        async function handleFortuneClick() {
+            const ip = await getIPAddress();
+            const savedTime = localStorage.getItem(`${ip}_time`);
+            const savedFortune = localStorage.getItem(`${ip}_fortune`);
+            const currentTime = new Date();
+            const tomorrow = new Date();
+            tomorrow.setHours(24, 0, 0, 0);
+
+            const fortuneResult = document.getElementById('fortuneResult');
+            const dimOverlay = document.querySelector('.dim-overlay');
+            const lottiePlayer = document.getElementById('lottiePlayer');
+
+            if (savedTime && currentTime < tomorrow) {
+                if (savedFortune) {
+                    dimOverlay.style.display = 'block';
+                    fortuneResult.style.display = 'block';
+                    fortuneResult.textContent = savedFortune;
+                    fortuneResult.style.opacity = "0";
+                    fortuneResult.style.animation = "none";
+                    setTimeout(() => {
+                        fortuneResult.style.animation = "fadeIn 2s ease forwards";
+                    }, 10);
+                    updateRemainingTime(savedTime);
+                }
+                alert("오늘의 운세를 이미 뽑았어요. 내일 또 만나요!");
+                return;
+            }
+
+            // dim 배경과 로티 애니메이션 표시
+            dimOverlay.style.display = 'block';
+            lottiePlayer.style.display = 'block';
+            
+            // 랜덤 운세 선택
+            const randomIndex = Math.floor(Math.random() * fortunes.length);
+            const randomFortune = fortunes[randomIndex];
+            
+            // 3초 후에 로티 애니메이션 숨기고 결과 표시
+            setTimeout(() => {
+                lottiePlayer.style.display = 'none';
+                fortuneResult.style.display = 'block';
+                fortuneResult.textContent = randomFortune;
+                fortuneResult.style.opacity = "0";
+                fortuneResult.style.animation = "none";
+                setTimeout(() => {
+                    fortuneResult.style.animation = "fadeIn 2s ease forwards";
+                }, 10);
+                localStorage.setItem(`${ip}_time`, currentTime.getTime());
+                localStorage.setItem(`${ip}_fortune`, randomFortune);
+                updateRemainingTime(currentTime.getTime());
+            }, 3000);
+        }
+
+        document.getElementById('drawButton').addEventListener('click', () => {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            addStar(x, y);
+        });
+
+        document.getElementById('fortuneButton').addEventListener('click', handleFortuneClick);
+
+        createStars();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            createStars();
+        });
+    </script>
+</body>
+</html>
