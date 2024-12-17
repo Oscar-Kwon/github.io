@@ -188,7 +188,7 @@
     <h1>행운 메시지 뽑고</h1>
     <h2>긍정적인 하루를 시작해요</h2>
     <button id="drawButton"></button>
-    <button id="fortuneButton">메시지 뽑기</button>
+    <button id="fortuneButton">행운메시지 뽑기</button>
     <button id="shareButton">공유하고 한번 더</button>
     <div id="fortuneResult"></div>
     <div id="remainingTime"></div>
@@ -543,7 +543,7 @@
                 const minutes = Math.floor((timeDiff % (60 * 60 * 1000)) / (60 * 1000));
                 const seconds = Math.floor((timeDiff % (60 * 1000)) / 1000);
 
-                remainingTimeDiv.textContent = `다음 뽑기까지 남은 시간: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                remainingTimeDiv.textContent = `다음 뽑기까지 대기 시간: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                 remainingTimeDiv.style.display = 'block';
                 setTimeout(() => updateRemainingTime(savedTime), 1000);
             } else {
@@ -611,7 +611,7 @@
 
         async function handleFortuneClick() {
             if (document.getElementById('fortuneButton').disabled) {
-                alert("오늘의 운세를 이미 뽑았어요. 공유하면 한 번 더 뽑을 수 있어요!");
+                alert("메시지를 이미 뽑았어요. 페이지를 공유하면 한 번 더 뽑을 수 있어요!");
                 document.getElementById('shareButton').style.display = 'block';
                 return;
             }
@@ -623,7 +623,7 @@
             tomorrow.setHours(24, 0, 0, 0);
 
             if (savedTime && currentTime < tomorrow && !hasShared) {
-                alert("오늘의 운세를 이미 뽑았어요. 공유하면 한 번 더 뽑을 수 있어요!");
+                alert("메시지를 이미 뽑았어요. 페이지를 공유하면 한 번 더 뽑을 수 있어요!");
                 document.getElementById('shareButton').style.display = 'block';
                 return;
             }
@@ -667,11 +667,11 @@
         document.getElementById('shareButton').addEventListener('click', () => {
             if (navigator.share) {
                 navigator.share({
-                    title: '럭키스팟 - 오늘의 행운 메시지',
-                    text: '오늘의 행운을 뽑아보세요!',
+                    title: '럭키스팟 - 오늘의 행운 메시지 뽑기',
+                    text: '행운을 높여주는 메시지를 뽑아보세요!',
                     url: window.location.href
                 }).then(() => {
-                    alert("공유 완료! 한 번 더 행운을 뽑아보세요.");
+                    alert("공유 완료! 메시지를 한 번 더 뽑을 수 있어요!");
                     hasShared = true;
                     document.getElementById('fortuneButton').disabled = false;
                     document.getElementById('fortuneButton').style.backgroundColor = '#33C6FF';
