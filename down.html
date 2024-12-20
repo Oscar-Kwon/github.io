@@ -122,51 +122,45 @@
         }
 
         /* 푸터 아이콘 스타일 */
-        #fortuneButton {
-            position: absolute;
-            bottom: 22%;
-            left: 50%;
-            width: 230px;
-            transform: translateX(-50%);
-            padding: 12px 32px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            background-color: #33C6FF;
-            color: white;
-            border: none;
-            border-radius: 60px;
-            z-index: 50;
+        #instagramImage {
+            position: fixed;
+            background-color: #d9d9d9;
+            padding: 12px;
+            border-radius: 80px;
+            top: 30px;
+            right: 16px;
+            width: 20px;
+            height: auto;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            z-index: 1000;
+            opacity: 0.7;
         }
 
-        #fortuneButton:hover {
-            background-color: #0E5B78;
+        #instagramImage:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
         }
 
-        #shareButton {
-            position: absolute;
-            bottom: 28%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 8px;
-            padding: 12px 24px;
-            width: 230px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            background-color: #ff9800;
-            color: white;
-            border: none;
-            border-radius: 60px;
+        #blogImage {
+            position: fixed;
+            background-color: #d9d9d9;
+            padding: 12px;
+            border-radius: 80px;
+            top: 80px;
+            right: 16px;
+            width: 20px;
+            height: auto;
             cursor: pointer;
-            z-index: 50;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            justify-items: center;
-            transition: background-color 0.3s ease;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            z-index: 1000;
+            opacity: 0.7;
+
         }
 
-        #shareButton:hover {
-            background-color: #f57c00;
+        #blogImage:hover {
+            transform: scale(1.1);
+            opacity: 1.0;
         }
     </style>
 </head>
