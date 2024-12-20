@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 다운로드 페이지</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Pretendard, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            text-align: center;
+            flex-direction: column;
+            padding-bottom: 60px; /* Sticky Bar와 겹치지 않도록 여백 */
+        }
+
+        .wrapper {
+            width: 380px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #33c6ff;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 60px;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #0e5b78;
+        }
+
+        /* Sticky 하단 네비게이션 바 스타일 */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+
+            color: #33C6FF;
+        }
+
+        #instagramImage {
+            position: fixed;
+            /* 고정된 위치 */
+            top: 20px;
+            /* 화면 상단에서 20px */
+            right: 20px;
+            /* 화면 우측에서 20px */
+            width: 40px;
+            /* 아이콘 크기 */
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            /* 클릭 애니메이션 */
+            z-index: 1000;
+            /* 다른 요소 위에 표시 */
+        }
+
+        #instagramImage:hover {
+            transform: scale(1.1);
+            /* 아이콘 확대 효과 */
+            opacity: 0.9;
+        }
+
+        #blogImage {
+            position: fixed;
+            /* 고정된 위치 */
+            top: 70px;
+            /* 화면 상단에서 20px */
+            right: 20px;
+            /* 화면 우측에서 20px */
+            width: 40px;
+            /* 아이콘 크기 */
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            /* 클릭 애니메이션 */
+            z-index: 1000;
+            /* 다른 요소 위에 표시 */
+        }
+
+        #blogImage:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>스마트폰 배경화면 다운로드</h1>
+        <div class="container">
+            <!-- 첫 번째 콘텐츠 -->
+            <div class="card">
+                <img src="bg-pangi-merrychristmas.jpg" alt="배경화면 1">
+                <a href="https://drive.google.com/file/d/1ZnP8iWovvDN6_Lh1eBsj9C8Gt_a6u_gL/view" 
+                   download="bg-pangi-santa-1.jpg" class="download-btn">이미지 다운로드</a>
+            </div>
+            <!-- 두 번째 콘텐츠 -->
+            <div class="card">
+                <img src="bg-pangi-santa.jpg" alt="배경화면 2">
+                <a href="https://drive.google.com/file/d/1BWivO5mZvp4zMp5QJmZ-HuWZ7jD38krT/view" 
+                   download="bg-pangi-santa-2.jpg" class="download-btn">이미지 다운로드</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky 하단 네비게이션 바 -->
+    <div class="nav-bar">
+            <a href="down.html" target="_self">
+                <i class="fa-solid fa-circle-arrow-down" alt="nav-icon"></i> 배경화면 다운
+            </a>
+            <a href="index.html" target="_self">
+                <i class="fa-solid fa-gift" alt="nav-icon"></i> 매일 행운뽑기
+            </a>
+    </div>
+
+        <!--우측 상단 플로팅 ic. 외부로 이동-->
+        <a href="https://www.instagram.com/luckyspot.kr" onclick="window.open(this.href, '_blank'); return false;">
+            <img id="instagramImage" src="item-instagram.png" alt="Insta Icon"></a>
+        <a href="https://www.luckyspot.in" target="_blank" onclick="window.open(this.href, '_blank'); return false;">
+            <img id="blogImage" src="Item-Luckyspot-Blog.png" alt="Blog Icon"></a>
+    
+    
+
+            
+</body>
+<script
+      src="https://kit.fontawesome.com/6478f529f2.js"
+      crossorigin="anonymous"
+    ></script>
+</html>
