@@ -1,0 +1,95 @@
+<!-- Sticky 하단 네비게이션 바 -->
+<div class="nav-bar">
+    <a href="down.html" target="_self">
+        <i class="fa-solid fa-circle-arrow-down" alt="nav-icon"></i> 배경다운
+    </a>
+    <a href="index.html" target="_self">
+        <i class="fa-solid fa-gift" alt="nav-icon"></i> 오늘의운세
+    </a>
+    <a href="music.html" target="_self">
+        <i class="fa-solid fa-gift" alt="nav-icon"></i> 음악듣기
+    </a>
+</div>
+
+<!-- 우측 상단 플로팅 아이콘 -->
+<a href="https://www.instagram.com/luckyspot.kr" onclick="window.open(this.href, '_blank'); return false;">
+    <img id="instagramImage" src="Name=logoInstagram.svg" alt="instagramImage">
+</a>
+<a href="https://www.luckyspot.in" target="_blank" onclick="window.open(this.href, '_blank'); return false;">
+    <img id="blogImage" src="Name=home.svg" alt="Blog Icon">
+</a>
+
+<style>
+    .nav-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #333;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+    }
+
+    .nav-bar a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .nav-bar a:hover {
+        color: #33C6FF;
+    }
+
+
+    #instagramImage {
+        position: fixed;
+        background-color: #d9d9d9;
+        padding: 12px;
+        border-radius: 80px;
+        top: 30px;
+        right: 16px;
+        width: 20px;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.3s ease;
+        z-index: 1000;
+        opacity: 0.7;
+    }
+
+    #instagramImage:hover {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+
+    #blogImage {
+        position: fixed;
+        background-color: #d9d9d9;
+        padding: 12px;
+        border-radius: 80px;
+        top: 80px;
+        right: 16px;
+        width: 20px;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.3s ease;
+        z-index: 1000;
+        opacity: 0.7;
+
+    }
+
+    #blogImage:hover {
+        transform: scale(1.1);
+        opacity: 1.0;
+    }
+</style>
