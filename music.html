@@ -10,16 +10,14 @@
             font-family: 'Pretendard';
             font-weight: 400;
             font-style: normal;
-            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2')
-                format('woff2');
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
         }
 
         @font-face {
             font-family: 'Pretendard';
             font-weight: 700;
             font-style: normal;
-            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2')
-                format('woff2');
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2') format('woff2');
         }
 
         * {
@@ -119,7 +117,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: brightness(0) invert(0.95); /* SVG color set to white */
+            filter: brightness(0) invert(0.95);
+            /* SVG color set to white */
             transition: transform 0.2s ease-in-out;
         }
 
@@ -165,9 +164,12 @@
         }
 
         @keyframes twinkle {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 0.5;
             }
+
             50% {
                 opacity: 1;
             }
@@ -228,7 +230,21 @@
                 title: 'Christmas Playlist by Luckyspot',
                 url: 'https://api.soundcloud.com/playlists/1681986306',
             },
+            {
+                title: 'Merry Christmas Playlist by 초별',
+                url: 'https://api.soundcloud.com/playlists/1704750675',
+            },
+            {
+                title: 'Last Christmas - Paris Music',
+                url: 'https://api.soundcloud.com/tracks/326661921',
+            },
+            {
+                title: '크리스마스 재즈 모음 🎄 - by 장윤지',
+                url: 'https://api.soundcloud.com/playlists/1713072231',
+            },
         ];
+
+
         let currentTrackIndex = 0;
 
         // Initialize SoundCloud Widget
