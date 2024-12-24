@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Player with SVG Buttons</title>
+    <style>
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 400;
+            font-style: normal;
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2')
+                format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 700;
+            font-style: normal;
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2')
+                format('woff2');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at center, #000000, #1a1a2e, #0f0f1a);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .wrapper {
+            width: 360px;
+            height: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .rotating-record {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: url('LP-img.png') no-repeat center center;
+            background-size: contain;
+            animation: spin 5s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .lp-stick {
+            position: absolute;
+            top: 8%;
+            left: 4%;
+            width: 70px;
+            height: 180px;
+            background: url('lp-stick.png') no-repeat center center;
+            background-size: contain;
+            transform-origin: top left;
+            transform: rotate(0deg);
+            transition: transform 0.8s ease-in-out;
+            z-index: 20;
+        }
+
+        .info-wrapper {
+            margin-top: 40px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .title {
+            margin-bottom: 16px;
+            font-weight: 200;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .indicator {
+            width: 320px;
+            height: 10px;
+            background-color: #444;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            justify-self: center;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #33c6ff;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .control-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 24px;
+        }
+
+        .button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: brightness(0) invert(0.95); /* SVG color set to white */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+
+        .button img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1s infinite ease-in-out;
+        }
+
+        iframe {
+            display: none;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="wrapper">
+        <div class="rotating-record" id="record"></div>
+        <div class="lp-stick" id="lpStick"></div>
+
+        <!-- Title and Indicator Wrapped Together -->
+        <div class="info-wrapper">
+            <h2 class="title" id="trackTitle">Cloudybay - Empty</h2>
+            <div class="indicator">
+                <div class="progress" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="control-buttons">
+            <button class="button" onclick="playPreviousTrack()">
+                <img src="backward-solid.svg" alt="Previous">
+            </button>
+            <button class="button" onclick="togglePlay()">
+                <img id="playPauseIcon" src="play-solid.svg" alt="Play">
+            </button>
+            <button class="button" onclick="playNextTrack()">
+                <img src="forward-solid.svg" alt="Next">
+            </button>
+        </div>
+    </div>
+
+    <!-- SoundCloud Iframe -->
+    <iframe id="soundCloudPlayer" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1857951750&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false"></iframe>
+
+    <!-- SoundCloud Widget API -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script>
+        const record = document.getElementById('record');
+        const lpStick = document.getElementById('lpStick');
+        const soundCloudPlayer = document.getElementById('soundCloudPlayer');
+        const progressBar = document.getElementById('progressBar');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const trackTitle = document.getElementById('trackTitle');
+        const starsContainer = document.getElementById('stars');
+        let isPlaying = false;
+
+        const tracks = [
+            {
+                title: 'Cloudybay - Empty',
+                url: 'https://api.soundcloud.com/tracks/1857951750',
+            },
+            {
+                title: 'Christmas Playlist by Luckyspot',
+                url: 'https://api.soundcloud.com/playlists/1681986306',
+            },
+        ];
+        let currentTrackIndex = 0;
+
+        // Initialize SoundCloud Widget
+        const widget = SC.Widget(soundCloudPlayer);
+
+        // Generate Twinkling Stars
+        function generateStars() {
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+        generateStars();
+
+        // Toggle play/pause and control LP animation
+        function togglePlay() {
+            widget.isPaused(function (paused) {
+                if (!paused) {
+                    record.style.animationPlayState = 'paused';
+                    lpStick.style.transform = 'rotate(0deg)';
+                    widget.pause();
+                    playPauseIcon.src = 'play-solid.svg';
+                } else {
+                    lpStick.style.transform = 'rotate(-18deg)';
+                    setTimeout(() => {
+                        record.style.animationPlayState = 'running';
+                        widget.play();
+                        startProgress();
+                    }, 800);
+                    playPauseIcon.src = 'pause-solid.svg';
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+
+        // Play next track
+        function playNextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            const nextTrack = tracks[currentTrackIndex];
+            widget.load(nextTrack.url, {
+                auto_play: true,
+            });
+            trackTitle.textContent = nextTrack.title;
+            progressBar.style.width = '0%';
+        }
+
+        // Play previous track
+        function playPreviousTrack() {
+            currentTrackIndex =
+                (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            const prevTrack = tracks[currentTrackIndex];
+            widget.load(prevTrack.url, {
+                auto_play: true,
+            });
+            trackTitle.textContent = prevTrack.title;
+            progressBar.style.width = '0%';
+        }
+
+        // Start updating progress bar
+        function startProgress() {
+            widget.getDuration(function (duration) {
+                setInterval(() => {
+                    widget.getPosition(function (position) {
+                        const progressPercentage = (position / duration) * 100;
+                        progressBar.style.width = `${progressPercentage}%`;
+                    });
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+
+</html>
