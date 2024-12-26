@@ -174,11 +174,45 @@
                 opacity: 1;
             }
         }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+
+            color: #33C6FF;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="stars" id="stars"></div>
+    <div id="footer-placeholder"></div>
     <div class="wrapper">
         <div class="rotating-record" id="record"></div>
         <div class="lp-stick" id="lpStick"></div>
@@ -203,6 +237,20 @@
                 <img src="forward-solid.svg" alt="Next">
             </button>
         </div>
+    </div
+    
+    <div class="nav-bar">
+        <div class="nav-bar">
+            <a href="down.html" target="_self">
+                <i class="fa-solid fa-circle-arrow-down" alt="nav-icon"></i> 배경다운
+            </a>
+            <a href="index.html" target="_self">
+                <i class="fa-solid fa-gift" alt="nav-icon"></i> 행운뽑기
+            </a>
+            <a href="music.html" target="_self">
+                <i class="fa-solid fa-gift" alt="nav-icon"></i> 음악듣기
+            </a>
+        </div>
     </div>
 
     <!-- SoundCloud Iframe -->
@@ -212,7 +260,20 @@
     <!-- SoundCloud Widget API -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
-        
+        const footerUrl = "https://https://github.com/Oscar-Kwon/github.io/blob/main/footer.html"; // Replace with your GitHub Pages URL
+
+        fetch(footerUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load footer.html");
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById("footer-placeholder").innerHTML = data;
+            })
+            .catch(error => console.error("Error loading footer:", error));
+
         const record = document.getElementById('record');
         const lpStick = document.getElementById('lpStick');
         const soundCloudPlayer = document.getElementById('soundCloudPlayer');
