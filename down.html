@@ -240,13 +240,23 @@
         
         
         <script>
-            // JavaScript to load the navigation bar component
-            fetch('component-nav.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('nav-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading nav component:', error));
+ // Navigation Fetch
+        // JavaScript to load the navigation bar component
+        const navUrl = location.hostname === "localhost"
+            ? 'component-nav.html' // 로컬 환경에서 상대 경로
+            : 'https://oscar-kwon.github.io/component-nav.html'; // 배포 환경에서 절대 경로
+
+        fetch(navUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load component-nav.html');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading nav component:', error));
         </script>
 
 
