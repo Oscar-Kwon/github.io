@@ -158,9 +158,12 @@
         }
 
         @keyframes twinkle {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 0.5;
             }
+
             50% {
                 opacity: 1;
             }
@@ -204,7 +207,12 @@
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
         // Navigation Fetch
-        fetch('https://oscar-kwon.github.io/component-nav.html')
+        // JavaScript to load the navigation bar component
+        const navUrl = location.hostname === "localhost"
+            ? 'component-nav.html' // 로컬 환경에서 상대 경로
+            : 'https://oscar-kwon.github.io/component-nav.html'; // 배포 환경에서 절대 경로
+
+        fetch(navUrl)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to load component-nav.html');
@@ -249,7 +257,7 @@
                 url: 'https://api.soundcloud.com/tracks/1857951750',
             },
             {
-                title: 'Christmas Playlist by Luckyspot',
+                title: 'Christmas Playlist',
                 url: 'https://api.soundcloud.com/playlists/1681986306',
             },
             {
