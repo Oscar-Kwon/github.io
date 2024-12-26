@@ -175,38 +175,6 @@
             }
         }
 
-        .nav-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background-color: #333;
-            color: white;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-        }
-
-        .nav-bar a {
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-bar a:hover {
-
-            color: #33C6FF;
-        }
-
     </style>
 </head>
 
@@ -238,22 +206,7 @@
             </button>
         </div>
     </div
-    
-    <div class="nav-bar">
-        <div class="nav-bar">
-            <a href="down.html" target="_self">
-                <i class="fa-solid fa-circle-arrow-down" alt="nav-icon"></i> 배경다운
-            </a>
-            <a href="index.html" target="_self">
-                <i class="fa-solid fa-gift" alt="nav-icon"></i> 행운뽑기
-            </a>
-            <a href="music.html" target="_self">
-                <i class="fa-solid fa-gift" alt="nav-icon"></i> 음악듣기
-            </a>
-        </div>
-    </div>
 
-    <!-- SoundCloud Iframe -->
     <iframe id="soundCloudPlayer" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1857951750&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false"></iframe>
 
