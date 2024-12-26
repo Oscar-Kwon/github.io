@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 400;
+            font-style: normal;
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 700;
+            font-style: normal;
+            src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2') format('woff2');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', Arial, sans-serif;
+        }
+
         body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -21,6 +44,7 @@
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
             z-index: 100;
         }
+
         .nav-bar a {
             color: white;
             text-decoration: none;
@@ -31,14 +55,17 @@
             gap: 8px;
             transition: color 0.3s ease;
         }
+
         .nav-bar a:hover {
             color: #33C6FF;
         }
+
         .nav-bar i {
             font-size: 1.5rem;
         }
     </style>
 </head>
+
 <body>
     <div class="nav-bar">
         <a href="down.html" target="_self"><i class="fa-solid fa-circle-arrow-down"></i> 배경다운</a>
@@ -46,4 +73,5 @@
         <a href="music.html" target="_self"><i class="fa-solid fa-gift"></i> 음악듣기</a>
     </div>
 </body>
+
 </html>
