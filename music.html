@@ -39,11 +39,9 @@
 
         .wrapper {
             width: 360px;
-            height: auto;
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             z-index: 10;
         }
@@ -73,8 +71,7 @@
         }
 
         .info-wrapper {
-            margin-top: 40px;
-            margin-bottom: 16px;
+            margin: 40px 0 16px 0;
             text-align: center;
         }
 
@@ -91,8 +88,6 @@
             background-color: #444;
             border-radius: 5px;
             overflow: hidden;
-            position: relative;
-            justify-self: center;
         }
 
         .progress {
@@ -118,7 +113,6 @@
             align-items: center;
             justify-content: center;
             filter: brightness(0) invert(0.95);
-            /* SVG color set to white */
             transition: transform 0.2s ease-in-out;
         }
 
@@ -146,7 +140,7 @@
             height: 2px;
             background: white;
             border-radius: 50%;
-            animation: twinkle 1s infinite ease-in-out;
+            animation: twinkle 2s infinite ease-in-out;
         }
 
         iframe {
@@ -164,36 +158,33 @@
         }
 
         @keyframes twinkle {
-
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 0.5;
             }
-
             50% {
                 opacity: 1;
             }
         }
-
     </style>
 </head>
 
 <body>
+    <!-- Stars for Background -->
     <div class="stars" id="stars"></div>
-    <div id="footer-placeholder"></div>
+
+    <!-- Navigation Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Main Wrapper -->
     <div class="wrapper">
         <div class="rotating-record" id="record"></div>
         <div class="lp-stick" id="lpStick"></div>
-
-        <!-- Title and Indicator Wrapped Together -->
         <div class="info-wrapper">
             <h2 class="title" id="trackTitle">Cloudybay - Empty</h2>
             <div class="indicator">
                 <div class="progress" id="progressBar"></div>
             </div>
         </div>
-
-        <!-- Control Buttons -->
         <div class="control-buttons">
             <button class="button" onclick="playPreviousTrack()">
                 <img src="backward-solid.svg" alt="Previous">
@@ -205,36 +196,52 @@
                 <img src="forward-solid.svg" alt="Next">
             </button>
         </div>
-    </div
+    </div>
 
     <iframe id="soundCloudPlayer" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1857951750&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false"></iframe>
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1857951750&auto_play=false&visual=false"></iframe>
 
-    <!-- SoundCloud Widget API -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
-        const footerUrl = "https://https://github.com/Oscar-Kwon/github.io/blob/main/footer.html"; // Replace with your GitHub Pages URL
-
-        fetch(footerUrl)
+        // Navigation Fetch
+        fetch('https://oscar-kwon.github.io/component-nav.html')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Failed to load footer.html");
+                    throw new Error('Failed to load component-nav.html');
                 }
                 return response.text();
             })
             .then(data => {
-                document.getElementById("footer-placeholder").innerHTML = data;
+                document.getElementById('nav-placeholder').innerHTML = data;
             })
-            .catch(error => console.error("Error loading footer:", error));
+            .catch(error => console.error('Error loading nav component:', error));
 
+        // Stars Background
+        const starsContainer = document.getElementById('stars');
+        function generateStars() {
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+        generateStars();
+
+        // SoundCloud Player Controls
         const record = document.getElementById('record');
         const lpStick = document.getElementById('lpStick');
         const soundCloudPlayer = document.getElementById('soundCloudPlayer');
         const progressBar = document.getElementById('progressBar');
         const playPauseIcon = document.getElementById('playPauseIcon');
         const trackTitle = document.getElementById('trackTitle');
-        const starsContainer = document.getElementById('stars');
+
+        let currentTrackIndex = 0;
+        const widget = SC.Widget(soundCloudPlayer);
         let isPlaying = false;
+        let progressInterval = null;
 
         const tracks = [
             {
@@ -259,90 +266,68 @@
             },
         ];
 
-
-        let currentTrackIndex = 0;
-
-        // Initialize SoundCloud Widget
-        const widget = SC.Widget(soundCloudPlayer);
-
-        // Generate Twinkling Stars
-        function generateStars() {
-            for (let i = 0; i < 200; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.top = `${Math.random() * 100}vh`;
-                star.style.left = `${Math.random() * 100}vw`;
-                star.style.animationDelay = `${Math.random() * 2}s`;
-                starsContainer.appendChild(star);
-            }
-        }
-        generateStars();
-
-        // Toggle play/pause and control LP animation
         function togglePlay() {
-            widget.isPaused(function (paused) {
-                if (!paused) {
+            widget.isPaused((paused) => {
+                if (paused) {
+                    record.style.animationPlayState = 'running';
+                    lpStick.style.transform = 'rotate(-18deg)';
+                    widget.play();
+                    playPauseIcon.src = 'pause-solid.svg';
+                    startProgressBar();
+                } else {
                     record.style.animationPlayState = 'paused';
                     lpStick.style.transform = 'rotate(0deg)';
                     widget.pause();
                     playPauseIcon.src = 'play-solid.svg';
-                } else {
-                    lpStick.style.transform = 'rotate(-18deg)';
-                    setTimeout(() => {
-                        record.style.animationPlayState = 'running';
-                        widget.play();
-                        startProgress();
-                    }, 800);
-                    playPauseIcon.src = 'pause-solid.svg';
+                    stopProgressBar();
                 }
-                isPlaying = !isPlaying;
             });
         }
 
-        // Play next track
         function playNextTrack() {
             currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-            const nextTrack = tracks[currentTrackIndex];
-            widget.load(nextTrack.url, {
-                auto_play: true,
-            });
-            trackTitle.textContent = nextTrack.title;
-            progressBar.style.width = '0%';
+            loadTrack();
         }
 
-        // Play previous track
         function playPreviousTrack() {
-            currentTrackIndex =
-                (currentTrackIndex - 1 + tracks.length) % tracks.length;
-            const prevTrack = tracks[currentTrackIndex];
-            widget.load(prevTrack.url, {
-                auto_play: true,
-            });
-            trackTitle.textContent = prevTrack.title;
-            progressBar.style.width = '0%';
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack();
         }
 
-        // Start updating progress bar
-        function startProgress() {
-            widget.getDuration(function (duration) {
-                setInterval(() => {
-                    widget.getPosition(function (position) {
+        function loadTrack() {
+            const track = tracks[currentTrackIndex];
+            widget.load(track.url, { auto_play: true });
+            trackTitle.textContent = track.title;
+            progressBar.style.width = '0%';
+            startProgressBar();
+        }
+
+        function startProgressBar() {
+            if (progressInterval) clearInterval(progressInterval);
+
+            widget.getDuration((duration) => {
+                progressInterval = setInterval(() => {
+                    widget.getPosition((position) => {
                         const progressPercentage = (position / duration) * 100;
                         progressBar.style.width = `${progressPercentage}%`;
+
+                        if (position >= duration) {
+                            playNextTrack();
+                        }
                     });
-                }, 1000);
+                }, 500);
             });
         }
 
-            // JavaScript to load the navigation bar component
-            fetch('component-nav.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('nav-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading nav component:', error));
+        function stopProgressBar() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+        }
 
-
+        widget.load(tracks[currentTrackIndex].url, { auto_play: false });
+        trackTitle.textContent = tracks[currentTrackIndex].title;
     </script>
 </body>
 
