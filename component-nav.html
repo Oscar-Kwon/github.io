@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+        .nav-bar a:hover {
+            color: #33C6FF;
+        }
+        .nav-bar i {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="down.html" target="_self"><i class="fa-solid fa-circle-arrow-down"></i> 배경다운</a>
+        <a href="index.html" target="_self"><i class="fa-solid fa-gift"></i> 행운뽑기</a>
+        <a href="music.html" target="_self"><i class="fa-solid fa-gift"></i> 음악듣기</a>
+    </div>
+</body>
+</html>
