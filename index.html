@@ -241,14 +241,15 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 40px;
+            height: 70px;
+            /* 고정 높이 */
             background-color: #333;
             color: white;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 10px 0px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10;
+            /* 패딩 제거 */
             z-index: 100;
         }
 
@@ -257,11 +258,15 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
+            line-height: 40px;
+            /* 부모 높이와 동일 */
             display: flex;
             align-items: center;
-            gap: 8px;
+            margin: 0 8px;
+            /* gap 대신 margin 사용 */
             transition: color 0.3s ease;
         }
+
 
         .nav-bar a:hover {
 
@@ -610,24 +615,13 @@
         createStars();
         animate();
 
-        // Navigation Fetch
         // JavaScript to load the navigation bar component
-        const navUrl = location.hostname === "localhost"
-            ? 'component-nav.html' // 로컬 환경에서 상대 경로
-            : 'https://oscar-kwon.github.io/component-nav.html'; // 배포 환경에서 절대 경로
-
-        fetch(navUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to load component-nav.html');
-                }
-                return response.text();
-            })
+        fetch('component-nav.html')
+            .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
             })
             .catch(error => console.error('Error loading nav component:', error));
-
     </script>
 </body>
 
