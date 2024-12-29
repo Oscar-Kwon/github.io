@@ -16,6 +16,7 @@
     <meta name="twitter:title" content="럭키스팟 - 오늘의 행운 메시지 뽑기">
     <meta name="twitter:description" content="오늘의 운세를 뽑고 긍정적인 하루를 시작하세요.">
     <meta name="twitter:image" content="og-thumb.png">
+    <script src="main.js" defer></script> 
     <title>럭키스팟 - 오늘의 행운 메시지 뽑기</title>
     <style>
         body {
@@ -296,19 +297,9 @@
     <div class="dim-overlay"></div>
     <div id="fortuneResult"></div>
 
-    <div class="nav-bar">
-        <div class="nav-bar">
-            <a href="down.html" target="_self">
-                <i class="fa-solid fa-circle-arrow-down" alt="nav-icon"></i> 배경다운
-            </a>
-            <a href="index.html" target="_self">
-                <i class="fa-solid fa-gift" alt="nav-icon"></i> 행운뽑기
-            </a>
-            <a href="music.html" target="_self">
-                <i class="fa-solid fa-gift" alt="nav-icon"></i> 음악듣기
-            </a>
-        </div>
-    </div>
+  
+
+    <custom-nav></custom-nav>
 
     <!--우측 상단 플로팅 ic. 외부로 이동-->
     <a href="https://www.instagram.com/luckyspot.kr" onclick="window.open(this.href, '_blank'); return false;">
@@ -754,13 +745,9 @@
         createStars();
         animate();
 
-        // JavaScript to load the navigation bar component
-        fetch('component-nav.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading nav component:', error));
+     
+
+
     </script>
 </body>
 
