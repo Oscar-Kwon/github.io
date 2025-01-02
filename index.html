@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="럭키스팟 - 오늘의 행운 메시지 뽑기">
     <meta name="twitter:description" content="오늘의 운세를 뽑고 긍정적인 하루를 시작하세요.">
     <meta name="twitter:image" content="og-thumb.png">
-    <script src="main.js" defer></script> 
+    <script src="main.js" defer></script>
     <title>럭키스팟 - 오늘의 행운 메시지 뽑기</title>
     <style>
         body {
@@ -37,23 +37,18 @@
 
         h1,
         h2 {
-            visibility: hidden;
             position: absolute;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 500;
             color: #f4f4f4;
-            z-index: 10;
+            z-index: 1000;
             text-align: center;
         }
 
         h1 {
-            top: 10%;
-        }
-
-        h2 {
-            top: 14%;
+            top: 5%;
         }
 
         #fortuneButton {
@@ -178,7 +173,7 @@
             left: 52%;
             transform: translate(-50%, -50%);
             z-index: 5;
-            width: 330px;
+            width: 300px;
             height: auto;
         }
 
@@ -188,9 +183,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 220px;
-            /* 이미지 크기 조절 */
             display: none;
-            /* 초기에는 숨김 */
             z-index: 100;
             animation: fadeIn 1.5s ease forwards;
         }
@@ -243,14 +236,12 @@
             left: 0;
             width: 100%;
             height: 70px;
-            /* 고정 높이 */
             background-color: #333;
             color: white;
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 10;
-            /* 패딩 제거 */
             z-index: 100;
         }
 
@@ -260,11 +251,9 @@
             font-size: 1rem;
             font-weight: 500;
             line-height: 40px;
-            /* 부모 높이와 동일 */
             display: flex;
             align-items: center;
             margin: 0 8px;
-            /* gap 대신 margin 사용 */
             transition: color 0.3s ease;
         }
 
@@ -288,8 +277,7 @@
 
 <body>
     <canvas id="spaceCanvas"></canvas>
-    <h1>행운 메시지 뽑고</h1>
-    <h2>긍정적인 하루를 시작해요</h2>
+    <h1 id="text">"HAPPY NEW YEAR"</h1>
     <button id="fortuneButton">행운메시지 뽑기</button>
     <button id="shareButton">공유하고 한번 더</button>
     <div id="fortuneResult"></div>
@@ -297,7 +285,7 @@
     <div class="dim-overlay"></div>
     <div id="fortuneResult"></div>
 
-  
+
 
     <custom-nav></custom-nav>
 
@@ -322,6 +310,55 @@
         crossorigin = "anonymous"
 
         const fortunes = [
+            "올해는 새로운 기회를 향해 도전하는 해로 만들어보세요",
+            "작은 변화가 신년의 큰 성공으로 이어질 것입니다",
+            "새로운 도전 속에서 당신의 잠재력을 발견해보세요",
+            "올해는 긍정적인 변화를 시작하기 좋은 시기입니다",
+            "신년에는 더 큰 목표를 세우고 이루어보세요",
+            "작은 변화가 모여 새로운 길을 열어줍니다",
+            "올해는 새로운 만남이 당신의 삶을 풍요롭게 할 것입니다",
+            "변화를 두려워하지 않고 신년의 새 출발을 응원합니다",
+            "새로운 시작이 당신에게 더 많은 기회를 가져다줄 것입니다",
+            "올해는 당신의 용기와 열정이 빛나는 해가 될 것입니다",
+            "신년의 새로운 결심이 당신을 더 강하게 만들 것입니다",
+            "올해는 작은 성공을 모아 큰 변화를 만들어보세요",
+            "새로운 배움이 당신의 길을 밝힐 것입니다",
+            "변화의 시기를 놓치지 않고 신년을 멋지게 시작하세요",
+            "올해는 스스로의 가치를 더 높이는 해로 만들어보세요",
+            "신년에는 새로운 기술을 배우는 데 도전해보세요",
+            "변화는 작은 한 걸음에서 시작됩니다",
+            "올해는 과거의 실패를 바탕으로 더 나아가는 해가 될 것입니다",
+            "신년에는 감사와 성실함으로 하루를 채워보세요",
+            "새로운 목표를 향해 흔들림 없이 나아가세요",
+            "올해는 변화와 성장이 함께하는 해로 만들어보세요",
+            "신년에는 더 많은 웃음과 사랑을 나누는 한 해로 삼으세요",
+            "변화를 받아들이고 새로운 가능성을 열어보세요",
+            "올해는 자신에게 더 많은 시간을 투자해보세요",
+            "신년에는 작은 성공도 소중히 여기며 감사하세요",
+            "변화를 두려워하지 않는 당신의 결단을 응원합니다",
+            "올해는 새로운 만남과 배움이 당신의 인생을 풍요롭게 할 것입니다",
+            "신년에는 새로운 도전을 통해 한계를 넘어보세요",
+            "올해는 모든 어려움을 극복하는 당신의 해가 될 것입니다",
+            "신년에는 더 많은 기쁨과 성공을 누리시길 바랍니다",
+            "변화의 씨앗을 심어 신년의 꽃을 피워보세요",
+            "올해는 도전과 변화로 가득 찬 한 해가 될 것입니다",
+            "신년에는 새로운 여정을 시작하는 데 두려움을 떨쳐보세요",
+            "올해는 당신의 노력이 결실을 맺는 해로 만들어보세요",
+            "신년의 새로운 기회는 준비된 자에게 찾아옵니다",
+            "변화와 혁신이 당신의 길을 밝히는 신년이 되길 바랍니다",
+            "올해는 모든 가능성을 열어두고 도전하세요",
+            "신년에는 자신의 꿈을 실현하는 데 집중해보세요",
+            "새로운 만남과 도전이 신년을 더 특별하게 만들 것입니다",
+            "올해는 당신의 열정이 모든 것을 가능하게 할 것입니다",
+            "신년에는 과거의 실패를 교훈 삼아 더 나아가세요",
+            "올해는 긍정적인 변화를 이루기 위한 해로 만들어보세요",
+            "신년에는 스스로를 더 사랑하고 격려하는 한 해로 만드세요",
+            "새로운 가능성에 마음을 열고 올해를 맞이하세요",
+            "신년에는 작은 변화가 인생의 큰 전환점이 될 수 있습니다",
+            "올해는 새로운 시작을 응원하며 모든 도전을 지지합니다",
+            "신년에는 주변의 행복을 소중히 여기며 하루하루를 살아보세요",
+            "변화를 통해 더 나은 자신을 만들어가는 한 해가 되길 바랍니다",
+            "올해는 당신의 잠재력이 빛을 발하는 해가 될 것입니다",
             "새로운 기회는 도전하는 자에게 찾아옵니다",
             "올해는 당신의 잠재력을 최대한 발휘해보세요",
             "어려움 속에서도 희망의 씨앗을 심어보세요",
@@ -745,7 +782,63 @@
         createStars();
         animate();
 
-     
+
+
+        /* HNY 셔플 */
+        const textElement = document.getElementById('text');
+        const languages = [
+            'HAPPY NEW YEAR',
+            '새해 복 많이 받으세요',   // 한국어
+            '新年快乐',                 // 중국어
+            'สวัสดีปีใหม่',             // 태국어
+            '明けましておめでとう' // 일본어
+        ];
+
+        const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789#$%&!*' +
+            '你好世界快乐幸福和平梦想未来友谊' +
+            'こんにちは世界友達未来平和愛希望夢' +
+            'สวัสดีความสุขชีวิตครอบครัวรักสันติสุข';
+
+        let currentLanguageIndex = 0;
+        let animationInterval;
+
+        // Function to generate random text
+        function generateRandomText(length) {
+            return Array.from({ length }).map(() =>
+                randomChars.charAt(Math.floor(Math.random() * randomChars.length))
+            ).join('');
+        }
+
+        // Function to shuffle text and transition between languages
+        function startContinuousShuffle() {
+            let counter = 0;
+            const originalTextLength = languages[currentLanguageIndex].length;
+
+            animationInterval = setInterval(() => {
+                if (counter < 13) { // Show random characters for 13 steps
+                    textElement.textContent = generateRandomText(originalTextLength);
+                    counter++;
+                } else { // Display the next language
+                    clearInterval(animationInterval);
+                    textElement.textContent = languages[currentLanguageIndex];
+                    currentLanguageIndex = (currentLanguageIndex + 1) % languages.length;
+
+                    // Pause for 1 second, then restart shuffle
+                    setTimeout(startContinuousShuffle, 1000);
+                }
+            }, 50); // Adjust interval speed
+        }
+
+        // Initialize the animation
+        function initializeDisplay() {
+            textElement.textContent = languages[currentLanguageIndex]; // Show the first language
+            setTimeout(() => {
+                startContinuousShuffle(); // Start shuffle and language transitions
+            }, 1200); // Delay for 1.2 seconds
+        }
+
+        // Start the animation on page load
+        initializeDisplay();
 
 
     </script>
