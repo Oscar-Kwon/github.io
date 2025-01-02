@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>LP Stick and Disk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at center, #333, #000);
+            font-family: Arial, sans-serif;
+        }
+
+        .wrapper {
+            width: 360px;
+            height: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-record {
+            width: 240px;
+            height: 240px;
+            background: url('LP-img.png') no-repeat center center/contain;
+            border-radius: 50%;
+            animation: spin 5s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .lp-stick {
+            position: absolute;
+            top: 3%;
+            left: 8%;
+            width: 40px;
+            height: 120px;
+            background: url('lp-stick.png') no-repeat center center/contain;
+            transform-origin: top left;
+            transform: rotate(deg);
+            transition: transform 0.8s ease-in-out;
+            z-index: 100;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .play-button {
+            margin-top: 40px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1000;
+        }
+
+        .play-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="rotating-record" id="record"></div>
+        <div class="lp-stick" id="lpStick"></div>
+        <button class="play-button" onclick="togglePlay()">Play Music</button>
+    </div>
+
+    <script>
+        const record = document.getElementById('record');
+        const lpStick = document.getElementById('lpStick');
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                record.style.animationPlayState = 'paused';
+                lpStick.style.transform = 'rotate(0deg)';
+                document.querySelector('.play-button').textContent = 'Play Music';
+            } else {
+                lpStick.style.transform = 'rotate(-25deg)';
+                setTimeout(() => {
+                    record.style.animationPlayState = 'running';
+                }, 800); // Wait for stick motion to complete
+                document.querySelector('.play-button').textContent = 'Pause Music';
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+
+</html>

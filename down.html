@@ -139,6 +139,45 @@
 
         }
 
+        /* nav-icons 스타일 */
+        .nav-icons a img {
+            width: 24px;
+            /* 아이콘 크기 */
+            height: 24px;
+            margin: 0 8px;
+            /* 아이콘 간격 */
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            /* 호버 애니메이션 */
+            opacity: 0.7;
+        }
+
+        .nav-icons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: fixed;
+            top: 30px;
+            right: 16px;
+            gap: 20px;
+            /* 아이콘 간 간격 */
+            z-index: 1000;
+            background-color: #d9d9d9;
+            /* 배경색 */
+            padding: 12px;
+            border-radius: 50px;
+            /* 둥근 모서리 */
+        }
+
+        /* 호버 효과 */
+        .nav-icons a img:hover {
+            transform: scale(1.1);
+            /* 확대 */
+            opacity: 0.9;
+            /* 호버 시 불투명도 */
+        }
+
+
         #blogImage:hover {
             transform: scale(1.1);
             opacity: 1.0;
