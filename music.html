@@ -212,6 +212,52 @@
             color: #33C6FF;
         }
 
+        /* 개별 버튼 스타일 */
+        .nav-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #d9d9d9;
+            /* 버튼 배경색 */
+            margin: 16px;
+            border-radius: 50%;
+            /* 동그라미 형태 */
+            margin-bottom: 12px !important;
+            /* 버튼 간격: 정확히 16px */
+            width: 50px;
+            /* 버튼 크기 */
+            height: 50px;
+            /* 버튼 크기 */
+            margin-top: 16px;
+            /* 버튼 간격 */
+            opacity: 0.5;
+            /* 기본 불투명도 */
+            transition: transform 0.2s ease, opacity 0.3s ease;
+        }
+
+        /* 호버 효과 */
+        .nav-icons a:hover {
+            transform: scale(1.1);
+            /* 확대 */
+            opacity: 0.85;
+            /* 호버 시 불투명도 */
+        }
+
+        /* nav-icons 컨테이너 */
+        .nav-icons {
+            display: flex;
+            flex-direction: column;
+            /* 세로 정렬 */
+            position: fixed;
+            top: 30px;
+            /* 시작 위치 */
+            right: 16px;
+            /* 우측 위치 */
+            z-index: 1000;
+        }
+
+
+
         .star {
             position: absolute;
             width: 2px;
