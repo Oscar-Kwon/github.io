@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js" defer></script> 
+    <script src="main.js" defer></script>
     <title>LUCKYSPOT LP Player</title>
     <style>
         @font-face {
@@ -45,11 +45,13 @@
             flex-direction: column;
             align-items: center;
             z-index: 10;
+            top: -3%;
         }
 
         .rotating-record {
-            width: 220px;
-            height: 220px;
+            width: 210px;
+            height: 210px;
+            margin-bottom: 50px;
             border-radius: 50%;
             background: url('LP-img.png') no-repeat center center;
             background-size: contain;
@@ -59,7 +61,7 @@
 
         .lp-stick {
             position: absolute;
-            top: 8%;
+            top: 3%;
             left: 4%;
             width: 70px;
             height: 180px;
@@ -72,23 +74,62 @@
         }
 
         .info-wrapper {
-            margin: 20px 0 16px 0;
-            text-align: center;
+            width: 320px;
+            /* 프로그래스바와 동일한 너비 */
+            position: relative;
+            height: 2rem;
+            /* 프로그래스바와 글씨를 포함한 높이 */
+            overflow: visible;
+            /* 글씨가 위로 넘칠 수 있도록 설정 */
+        }
+
+        .title-wrapper {
+            position: absolute;
+            top: -32px;
+            /* 프로그래스바 위에서 32px 떨어지도록 설정 */
+            left: 0;
+            width: 320px;
+            /* 글씨 영역 너비 */
+            height: 1.5rem;
+            /* 글씨 높이 */
+            overflow: hidden;
+            /* 글씨 영역 밖 텍스트 숨김 */
+            mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+            -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
         }
 
         .title {
-            margin-bottom: 16px;
-            font-weight: 200;
-            font-size: 1.2rem;
-            color: #fff;
+            display: inline-block;
+            white-space: nowrap;
+            position: absolute;
+            animation: marquee 7s linear infinite;
+            color: #d9d9d9;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+                /* 우측 안 보이는 영역에서 시작 */
+            }
+
+            100% {
+                transform: translateX(-100%);
+                /* 좌측 안 보이는 영역으로 사라짐 */
+            }
         }
 
         .indicator {
             width: 320px;
             height: 10px;
             background-color: #444;
+            /* 투명도 제거 */
             border-radius: 5px;
             overflow: hidden;
+            position: relative;
+            z-index: 1;
+            /* 프로그래스바가 글씨 아래에 위치 */
         }
 
         .progress {
@@ -96,7 +137,10 @@
             background-color: #33c6ff;
             width: 0%;
             transition: width 0.1s linear;
+            z-index: 1;
+            /* 프로그래스바가 글씨 아래에 위치 */
         }
+
 
         .control-buttons {
             margin-top: 20px;
@@ -141,14 +185,12 @@
             left: 0;
             width: 100%;
             height: 70px;
-            /* 고정 높이 */
             background-color: #333;
             color: white;
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 10;
-            /* 패딩 제거 */
             z-index: 100;
         }
 
@@ -158,11 +200,9 @@
             font-size: 1rem;
             font-weight: 500;
             line-height: 40px;
-            /* 부모 높이와 동일 */
             display: flex;
             align-items: center;
             margin: 0 8px;
-            /* gap 대신 margin 사용 */
             transition: color 0.3s ease;
         }
 
@@ -221,7 +261,9 @@
         <div class="rotating-record" id="record"></div>
         <div class="lp-stick" id="lpStick"></div>
         <div class="info-wrapper">
-            <h2 class="title" id="trackTitle">Cloudybay - Empty</h2>
+            <div class="title-wrapper">
+                <h2 class="title" id="trackTitle">Cloudybay - Empty</h2>
+            </div>
             <div class="indicator">
                 <div class="progress" id="progressBar"></div>
             </div>
@@ -231,7 +273,7 @@
                 <img src="backward-solid.svg" alt="Previous">
             </button>
             <button class="button" onclick="togglePlay()">
-                <img id="playPauseIcon" src="play-solid.svg" alt="Play">
+                <img id="playPauseIcon" src="music-btn/circle-play-solid.svg" alt="Play">
             </button>
             <button class="button" onclick="playNextTrack()">
                 <img src="forward-solid.svg" alt="Next">
@@ -316,13 +358,13 @@
                     record.style.animationPlayState = 'running';
                     lpStick.style.transform = 'rotate(-18deg)';
                     widget.play();
-                    playPauseIcon.src = 'pause-solid.svg';
+                    playPauseIcon.src = 'music-btn/circle-pause-solid.svg';
                     startProgressBar();
                 } else {
                     record.style.animationPlayState = 'paused';
                     lpStick.style.transform = 'rotate(0deg)';
                     widget.pause();
-                    playPauseIcon.src = 'play-solid.svg';
+                    playPauseIcon.src = 'music-btn/circle-play-solid.svg';
                     stopProgressBar();
                 }
             });
