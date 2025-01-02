@@ -185,47 +185,77 @@
             animation: fadeIn 1.5s ease forwards;
         }
 
-        /* 푸터 아이콘 스타일 */
-        #instagram {
-            position: fixed;
+        .nav-icons a img {
+            width: 24px;
+            /* 아이콘 크기 */
+            height: 24px;
+            margin: 8px;
+            /* 아이콘 간격 */
+            cursor: pointer;
+        }
+
+        .nav-icons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /* 공통 스타일: 아이콘 */
+        .nav-icons a img {
+            width: 24px;
+            /* 아이콘 크기 */
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            /* 호버 애니메이션 */
+            margin: 10px;
+            padding: 10px;
+        }
+
+        /* 개별 버튼 스타일 */
+        .nav-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #d9d9d9;
-            padding: 12px;
-            border-radius: 80px;
+            /* 버튼 배경색 */
+            margin: 16px;
+            border-radius: 50%;
+            /* 동그라미 형태 */
+            margin-bottom: 12px !important;
+            /* 버튼 간격: 정확히 16px */
+            width: 50px;
+            /* 버튼 크기 */
+            height: 50px;
+            /* 버튼 크기 */
+            margin-top: 16px;
+            /* 버튼 간격 */
+            opacity: 0.5;
+            /* 기본 불투명도 */
+            transition: transform 0.2s ease, opacity 0.3s ease;
+        }
+
+        /* 호버 효과 */
+        .nav-icons a:hover {
+            transform: scale(1.1);
+            /* 확대 */
+            opacity: 0.85;
+            /* 호버 시 불투명도 */
+        }
+
+        /* nav-icons 컨테이너 */
+        .nav-icons {
+            display: flex;
+            flex-direction: column;
+            /* 세로 정렬 */
+            position: fixed;
             top: 30px;
+            /* 시작 위치 */
             right: 16px;
-            width: 20px;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.3s ease;
+            /* 우측 위치 */
             z-index: 1000;
-            opacity: 0.7;
         }
 
-        #instagram:hover {
-            transform: scale(1.1);
-            opacity: 0.9;
-        }
-
-        #blogImage {
-            position: fixed;
-            background-color: #d9d9d9;
-            padding: 12px;
-            border-radius: 80px;
-            top: 80px;
-            right: 16px;
-            width: 20px;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.3s ease;
-            z-index: 1000;
-            opacity: 0.7;
-
-        }
-
-        #blog:hover {
-            transform: scale(1.1);
-            opacity: 1.0;
-        }
 
         .nav-bar {
             position: fixed;
@@ -285,12 +315,6 @@
 
 
     <custom-nav></custom-nav>
-
-    <!--우측 상단 플로팅 ic. 외부로 이동-->
-    <a href="https://www.instagram.com/luckyspot.kr" onclick="window.open(this.href, '_blank'); return false;">
-        <img id="instagram" src="Name=logoInstagram.svg" alt="instagramImage"></a>
-    <a href="https://www.luckyspot.in" target="_blank" onclick="window.open(this.href, '_blank'); return false;">
-        <img id="blogImage" src="Name=home.svg" alt="Blog Icon"></a>
 
 
     <img id="mainImage" src="main-image-04.png" alt="Main Image">
