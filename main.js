@@ -17,11 +17,11 @@ class nav extends HTMLElement {
                         <div class="nav-icons">
                             <a href="https://www.instagram.com/luckyspot.kr" 
                                onclick="window.open(this.href, '_blank'); return false;">
-                                <img id="instagram" src="logoInstagram.svg" alt="Instagram">
+                                <img id="instagram" src="Name=logoInstagram.svg" alt="Instagram">
                             </a>
                             <a href="https://www.luckyspot.in" 
                                onclick="window.open(this.href, '_blank'); return false;">
-                                <img id="home" src="home.svg" alt="Homepage">
+                                <img id="home" src="Name=home.svg" alt="Homepage">
                             </a>
                         </div>
                     </div>

@@ -139,49 +139,62 @@
 
         }
 
-        /* nav-icons 스타일 */
+        /* 공통 스타일: 아이콘 */
         .nav-icons a img {
             width: 24px;
             /* 아이콘 크기 */
             height: 24px;
-            margin: 0 8px;
-            /* 아이콘 간격 */
             cursor: pointer;
             transition: transform 0.2s ease, opacity 0.3s ease;
             /* 호버 애니메이션 */
-            opacity: 0.7;
+            margin: 10px;
+            padding: 10px;
         }
 
-        .nav-icons {
+        /* 개별 버튼 스타일 */
+        .nav-icons a {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 30px;
-            right: 16px;
-            gap: 20px;
-            /* 아이콘 간 간격 */
-            z-index: 1000;
             background-color: #d9d9d9;
-            /* 배경색 */
-            padding: 12px;
-            border-radius: 50px;
-            /* 둥근 모서리 */
+            /* 버튼 배경색 */
+            margin: 16px;
+            border-radius: 50%;
+            /* 동그라미 형태 */
+            margin-bottom: 12px !important;
+            /* 버튼 간격: 정확히 16px */
+            width: 50px;
+            /* 버튼 크기 */
+            height: 50px;
+            /* 버튼 크기 */
+            margin-top: 16px;
+            /* 버튼 간격 */
+            opacity: 0.5;
+            /* 기본 불투명도 */
+            transition: transform 0.2s ease, opacity 0.3s ease;
         }
 
         /* 호버 효과 */
-        .nav-icons a img:hover {
+        .nav-icons a:hover {
             transform: scale(1.1);
             /* 확대 */
-            opacity: 0.9;
+            opacity: 0.85;
             /* 호버 시 불투명도 */
         }
 
-
-        #blogImage:hover {
-            transform: scale(1.1);
-            opacity: 1.0;
+        /* nav-icons 컨테이너 */
+        .nav-icons {
+            display: flex;
+            flex-direction: column;
+            /* 세로 정렬 */
+            position: fixed;
+            top: 30px;
+            /* 시작 위치 */
+            right: 16px;
+            /* 우측 위치 */
+            z-index: 1000;
         }
+
 
         .nav-bar {
             position: fixed;
