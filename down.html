@@ -104,6 +104,7 @@
         }
 
         .nav-bar {
+            visibility: hidden;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -120,6 +121,7 @@
         }
 
         .nav-bar a {
+            visibility: hidden;
             color: white;
             text-decoration: none;
             font-size: 1rem;
@@ -133,11 +135,12 @@
 
 
         .nav-bar a:hover {
-
+            visibility: hidden;
             color: #33C6FF;
         }
 
         .nav-placeholder {
+            visibility: hidden;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -232,18 +235,8 @@
                     다운로드</a>
             </div>
         </div>
-        <custom-nav></custom-nav>
-        <script>
 
-            // JavaScript to load the navigation bar component
-            /*테스트용*/
-            fetch('component-nav.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('nav-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading nav component:', error));
-        </script>
+        <custom-nav></custom-nav>
 
         <h2>이미지를 1초 정도 꾹~<br>눌러도 다운로드 가능해요<br></h2>
 </body>
