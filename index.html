@@ -22,7 +22,7 @@
         body {
             margin: 0;
             overflow: hidden;
-            background: radial-gradient(circle at center, #000428, #0E5B78);
+            background: linear-gradient(to top, #FFD0CE, #FFEEED);
             height: 100vh;
             display: flex;
             align-items: center;
@@ -30,6 +30,20 @@
             color: white;
             font-family: Pretendard, sans-serif;
         }
+
+        .petal {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+
+        
 
         canvas {
             display: block;
@@ -43,7 +57,7 @@
             transform: translate(-50%, -50%);
             font-size: 1rem;
             font-weight: 400;
-            color: #f4f4f4;
+            color: #121212;
             z-index: 70;
             text-align: center;
         }
@@ -56,7 +70,7 @@
             transform: translateX(-50%);
             padding: 12px 32px;
             font-size: 1.2rem;
-            font-weight: 600;
+            font-weight: 400;
             background-color: #33C6FF;
             color: white;
             border: none;
@@ -67,7 +81,7 @@
         }
 
         #fortuneButton:hover {
-            background-color: #0E5B78;
+            background-color: #001821;
         }
 
         #shareButton {
@@ -287,16 +301,16 @@
 
         .nav-bar a:hover {
 
-            color: #33C6FF;
+            color: #00AAE3;
         }
 
         .black-hole {
             position: absolute;
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, #000000, #2d2d4f, #000000);
+            background: linear-gradient(to top, #ffe6f0, #ffffff);
             border-radius: 50%;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 150px rgba(10, 10, 30, 0.7);
+            box-shadow: linear-gradient(to top, #ffe6f0, #ffffff);
             animation: spin 10s linear infinite;
         }
     </style>
@@ -808,11 +822,9 @@
         /* HNY 셔플 */
         const textElement = document.getElementById('text');
         const languages = [
-            'HAPPY NEW YEAR',
-            '새해 복 많이 받으세요',   // 한국어
-            '新年快乐',                 // 중국어
-            'สวัสดีปีใหม่',             // 태국어
-            '明けましておめでとう' // 일본어
+            'Get Lucky',
+            '運をつかむ',
+            '得到好運',               
         ];
 
         const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789#$%&!*' +
@@ -861,6 +873,56 @@
         // Start the animation on page load
         initializeDisplay();
 
+        const NUM_PETALS = 30;
+
+function createPetal() {
+  const petal = document.createElement('div');
+  petal.classList.add('petal');
+
+  // 랜덤 이미지 선택
+  const petalImages = [
+  'petal01.png', 'petal01.png', 'petal01.png', // 3번
+  'petal02.png'                               // 1번
+];
+const selectedImage = petalImages[Math.floor(Math.random() * petalImages.length)];
+petal.style.backgroundImage = `url('${selectedImage}')`;
+
+  document.body.appendChild(petal);
+
+  const startLeft = Math.random() * window.innerWidth;
+  const duration = 10 + Math.random() * 12;
+  const size = 10 + Math.random() * 18;
+  const rotateDeg = Math.random() * 860;
+
+  petal.style.left = `${startLeft}px`;
+  petal.style.top = `-${size}px`;
+  petal.style.width = `${size}px`;
+  petal.style.height = `${size}px`;
+
+  const animation = petal.animate([
+    {
+      transform: `translate(0, 0) rotate(30deg)`,
+      opacity: 1
+    },
+    {
+      transform: `translate(${Math.random() * 100 - 50}px, ${window.innerHeight + 100}px) rotate(${rotateDeg}deg)`,
+      opacity: 0
+    }
+  ], {
+    duration: duration * 400,
+    iterations: 1,
+    easing: 'ease-in-out'
+  });
+
+  animation.onfinish = () => {
+    petal.remove();
+    createPetal(); // 계속 생성
+  };
+}
+
+for (let i = 0; i < NUM_PETALS; i++) {
+  setTimeout(createPetal, i * 200);
+}
 
     </script>
 </body>
