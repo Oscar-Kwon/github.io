@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>무인카페 창업 계산기 (B버전)</title>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background: #202727;
+      color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 24px;
+      color: #33C6FF;
+    }
+    .cta-top {
+      background-color: #33C6FF;
+      color: #121212;
+      text-align: center;
+      font-weight: bold;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #333;
+    }
+    th {
+      text-align: left;
+      background: #2a2a2a;
+    }
+    .section-title {
+      background: #303030;
+      font-weight: bold;
+      color: #33C6FF;
+    }
+    .total {
+      font-weight: bold;
+      text-align: right;
+      background: #262626;
+      color: #fff;
+    }
+    .cta-button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      background-color: #33C6FF;
+      color: #121212;
+      border: none;
+      border-radius: 12px;
+      margin-top: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #084860;
+      color: #ffffff;
+    }
+    .note {
+      font-size: 13px;
+      color: #999;
+      margin-top: 20px;
+    }
+    .floating-call-btn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #33C6FF;
+      color: #121212;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 16px;
+      z-index: 1000;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+    .floating-call-btn:hover {
+      background-color: #084860;
+      color: #ffffff;
+    }
+    @media (max-width: 600px) {
+      .floating-call-btn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>럭키스팟 창업비용 계산기</h1>
+
+    <div class="cta-top">
+      💥 최대 -500만원 혜택! 지금 상담만 받아도 적용됩니다!
+    </div>
+
+    <table id="costTable">
+      <tr><th colspan="4">비용 항목 (8평 기준)</th></tr>
+
+      <tr class="section-title"><td colspan="4">창업 비용</td></tr>
+      <tr><td>초도물량</td><td></td><td>155</td><td><input type="checkbox" data-cost="155" checked></td></tr>
+      <tr><td>간판&어닝</td><td></td><td>380</td><td><input type="checkbox" data-cost="380" checked></td></tr>
+      <tr><td>머신-구매</td><td></td><td>2000</td><td><input type="checkbox" data-cost="2300"></td></tr>
+
+      <tr><td>인테리어</td><td></td><td>1850</td><td><input type="checkbox" data-cost="1850" checked></td></tr>
+      <tr><td>가구/소품/홍보물</td><td></td><td>200</td><td><input type="checkbox" data-cost="260" checked></td></tr>
+      <tr><td>냉난방기</td><td></td><td>120</td><td><input type="checkbox" data-cost="120" checked></td></tr>
+      <tr><td>보안기기</td><td></td><td>50</td><td><input type="checkbox" data-cost="90" checked></td></tr>
+      <tr><td>사업자등록비</td><td></td><td>20</td><td><input type="checkbox" data-cost="155" checked></td></tr>
+
+      <tr class="section-title"><td colspan="4">부동산</td></tr>
+      <tr><td>보증금</td><td></td><td>1000</td><td><input type="checkbox" data-cost="1000" checked></td></tr>
+      <tr><td>권리금</td><td></td><td>1000</td><td><input type="checkbox" data-cost="1000" checked></td></tr>
+      <tr><td>중개수수료</td><td></td><td>100</td><td><input type="checkbox" data-cost="100" checked></td></tr>
+      <tr><td>철거</td><td></td><td>280</td><td><input type="checkbox" data-cost="280" checked></td></tr>
+
+      <tr class="section-title"><td colspan="4">프로모션</td></tr>
+      <tr><td>커피머신 구매 지원금</td><td></td><td>-500</td><td><input type="checkbox" data-cost="-500" checked></td></tr>
+      <tr><td>추천인 할인</td><td></td><td>-35</td><td><input type="checkbox" data-cost="-35" checked></td></tr>
+
+      <tr><td colspan="3" class="total">총 비용:</td><td><strong id="totalCost">2600</strong> 만원</td></tr>
+    </table>
+
+    <button class="cta-button" onclick="location.href='tel:1551-7157'">
+      ☎️ 빠르게 상담받고 혜택받기
+    </button>
+
+    <div class="note">
+      * 항목을 체크하면 실시간으로 계산돼요.<br>
+      * 지금 상담만 받아도 혜택 적용 가능! 부담없이 연락 주세요 :)
+    </div>
+  </div>
+
+  <div class="floating-call-btn" onclick="location.href='tel:1551-7157'">
+    ☎️ 지금 전화 상담하기
+  </div>
+
+  <div style="text-align:center; margin-top: 40px;">
+    <img src="lslogo.png" alt="로고" style="max-width: 180px; opacity: 0.9;">
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const totalCostDisplay = document.getElementById('totalCost');
+
+    function updateTotal() {
+      let total = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          total += parseFloat(cb.getAttribute('data-cost')) || 0;
+        }
+      });
+      totalCostDisplay.textContent = total.toLocaleString();
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateTotal);
+    });
+
+    window.addEventListener('DOMContentLoaded', updateTotal);
+  </script>
+</body>
+</html>
