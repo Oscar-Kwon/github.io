@@ -55,12 +55,6 @@
       font-weight: bold;
       color: #33C6FF;
     }
-    .total {
-      font-weight: bold;
-      text-align: right;
-      background: #262626;
-      color: #fff;
-    }
     .cta-button {
       display: block;
       width: 100%;
@@ -108,6 +102,34 @@
         display: block;
       }
     }
+
+    /* ✅ 강조된 총 비용 영역 */
+    .total {
+      font-weight: bold;
+      text-align: center;
+      background: #262626;
+      color: #fff;
+      font-size: 24px;
+      padding: 24px 16px;
+      border-radius: 12px;
+      animation: fadeUp 0.6s ease;
+    }
+
+    #totalCost {
+      font-size: 28px;
+      color: #33C6FF;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -115,7 +137,7 @@
     <h1>럭키스팟 창업비용 계산기</h1>
 
     <div class="cta-top">
-      💥 최대 -500만원 혜택! 지금 상담만 받아도 적용됩니다!
+    ⚡️지금만! 최대 700만원 창업비용 지원
     </div>
 
     <table id="costTable">
@@ -125,7 +147,6 @@
       <tr><td>초도물량</td><td></td><td>155</td><td><input type="checkbox" data-cost="155" checked></td></tr>
       <tr><td>간판&어닝</td><td></td><td>380</td><td><input type="checkbox" data-cost="380" checked></td></tr>
       <tr><td>머신구매</td><td></td><td>2000</td><td><input type="checkbox" data-cost="2300"></td></tr>
-
       <tr><td>인테리어</td><td></td><td>1850</td><td><input type="checkbox" data-cost="1850" checked></td></tr>
       <tr><td>가구/소품/홍보물</td><td></td><td>200</td><td><input type="checkbox" data-cost="260" checked></td></tr>
       <tr><td>냉난방기</td><td></td><td>120</td><td><input type="checkbox" data-cost="120" checked></td></tr>
@@ -139,14 +160,18 @@
       <tr><td>철거</td><td></td><td>250</td><td><input type="checkbox" data-cost="280" checked></td></tr>
 
       <tr class="section-title"><td colspan="4">프로모션</td></tr>
-      <tr><td>커피머신 구매 지원금</td><td></td><td>-500</td><td><input type="checkbox" data-cost="-500" checked></td></tr>
-      <tr><td>추천인 할인</td><td></td><td>-35</td><td><input type="checkbox" data-cost="-35" checked></td></tr>
+      <tr><td>🍀커피머신 구매 지원금(30호 한정)</td><td></td><td>-500</td><td><input type="checkbox" data-cost="-500" checked></td></tr>
+      <tr><td>🍀추천인 할인</td><td></td><td>-35</td><td><input type="checkbox" data-cost="-35" checked></td></tr>
 
-      <tr><td colspan="3" class="total">총 비용:</td><td><strong id="totalCost">2600</strong> 만원</td></tr>
+      <tr>
+        <td colspan="4" class="total">
+          총 창업 비용: <span id="totalCost">2600</span> 만원
+        </td>
+      </tr>
     </table>
 
     <button class="cta-button" onclick="location.href='tel:1551-7157'">
-      ☎️ 빠르게 상담받고 혜택받기
+      ☎️ 5분 상담받고 혜택받기
     </button>
 
     <div class="note">
@@ -156,7 +181,7 @@
   </div>
 
   <div class="floating-call-btn" onclick="location.href='tel:1551-7157'">
-    ☎️ 지금 전화 상담하기
+    ☎️ 5분 전화 상담
   </div>
 
   <div style="text-align:center; margin-top: 40px;">
