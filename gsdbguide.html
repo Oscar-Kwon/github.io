@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>구슬다방 브랜드 디자인 가이드</title>
+  <style>
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    text-align: left;
+  }
+
+  .color-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .font-download {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .font-download a {
+    text-align: center;
+  }
+}
+
+
+
+    :root {
+      --mint: #98E2CF;
+      --deep-black-green: #05130F;
+      --red-brown: #602B2B;
+      --dark-brown: #351805;
+      --pink: #E298AB;
+      --gold-beige: #DCA878;
+      --bronze-orange: #B16636;
+      --pastel-blue: #9ADDFF;
+      --lemon-yellow: #FFEF92;
+    }
+
+    body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Source Sans 3', 'Pretendard', sans-serif;
+  }
+
+  /* Font Hierarchy Styles */
+  .h1-title {
+    font-size: 56px;
+    font-weight: 700;
+    font-family: 'Fredoka', 'Pretendard', sans-serif;
+    text-align: left;
+  }
+
+  .h2-title {
+    font-size: 40px;
+    font-weight: 600;
+    font-family: 'Fredoka', 'Pretendard', sans-serif;
+  }
+
+  .h3-title {
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Source Sans 3', 'Pretendard', sans-serif;
+  }
+
+  .body-large {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Source Sans 3', 'Nexon Gothic', sans-serif;
+  }
+
+  .body {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Source Sans 3', 'Nexon Gothic', sans-serif;
+  }
+
+  .caption {
+    font-size: 12px;
+    font-weight: 300;
+    font-family: 'Source Sans 3', 'Nexon Gothic', sans-serif;
+  }
+
+  .button-text {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Fredoka', 'Source Sans 3', sans-serif;
+  }
+
+  .deco-text {
+    font-size: 32px;
+    font-family: '조선굴림체', '고운돋움체', 'Fredoka', cursive;
+    font-weight: 400;
+  }
+
+    body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      font-family: 'Source Sans 3', 'Pretendard', sans-serif;
+    }
+   
+    h1 {
+      font-size: 2.5rem;
+      color: var(--deep-black-green);
+      text-align: left;
+    }
+
+    .section {
+      margin: 3rem 0;
+      padding: 2rem;
+      border-radius: 1rem;
+      background: #f8f9fa;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .color-box {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      color: white;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .color-box button {
+      margin-top: 0.5rem;
+      align-self: flex-start;
+      background: rgba(255,255,255,0.8);
+      color: #333;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .color-box button:hover {
+      background: var(--lemon-yellow);
+    }
+
+    
+    .font-sample {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+    }
+
+    .font-sample h1 { font-size: 56px; font-weight: bold; }
+    .font-sample h2 { font-size: 40px; font-weight: 600; }
+    .font-sample h3 { font-size: 28px; font-weight: 500; }
+    .font-sample .body-large { font-size: 18px; }
+    .font-sample .body { font-size: 16px; }
+    .font-sample .caption { font-size: 14px; }
+
+    .font-download {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .font-download a {
+      background: var(--mint);
+      color: var(--deep-black-green);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .font-download a:hover {
+      background: var(--pastel-blue);
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 구슬다방 브랜드 디자인 가이드</h1>
+
+  <section class="section">
+    <h2>🎨 Color Scheme</h2>
+
+    <h3>Primary Colors</h3>
+    <div class="color-grid">
+      <div class="color-box" style="background: var(--mint)">
+        <div>
+          <p>민트 #98E2CF</p>
+          <small>브랜드 대표색. 밝고 상큼한 포인트</small>
+        </div>
+        <button class="copy-btn" data-color="#98E2CF">복사</button>
+      </div>
+      <div class="color-box" style="background: var(--deep-black-green)">
+        <div>
+          <p>딥블랙그린 #05130F</p>
+          <small>텍스트와 백그라운드 대비용</small>
+        </div>
+        <button class="copy-btn" data-color="#05130F">복사</button>
+      </div>
+    </div>
+
+    <h3>Secondary Colors</h3>
+    <div class="color-grid">
+      <div class="color-box" style="background: var(--red-brown)">
+        <p>레드브라운 #602B2B</p>
+        <button class="copy-btn" data-color="#602B2B">복사</button>
+      </div>
+      <div class="color-box" style="background: var(--dark-brown)">
+        <p>다크브라운 #351805</p>
+        <button class="copy-btn" data-color="#351805">복사</button>
+      </div>
+      <div class="color-box" style="background: var(--pink)">
+        <p>핑크 #E298AB</p>
+        <button class="copy-btn" data-color="#E298AB">복사</button>
+      </div>
+      <div class="color-box" style="background: var(--gold-beige)">
+        <p>골드베이지 #DCA878</p>
+        <button class="copy-btn" data-color="#DCA878">복사</button>
+      </div>
+      <div class="color-box" style="background: var(--bronze-orange)">
+        <p>브론즈오렌지 #B16636</p>
+        <button class="copy-btn" data-color="#B16636">복사</button>
+      </div>
+    </div>
+
+    <h3>Point Colors</h3>
+    <div class="color-grid">
+      <div class="color-box" style="background: var(--pastel-blue)">
+        <p>파스텔블루 #9ADDFF</p>
+        <button class="copy-btn" data-color="#9ADDFF">복사</button>
+      </div>
+      <div class="color-box" style="background: var(--lemon-yellow)">
+        <p>레몬옐로우 #FFEF92</p>
+        <button class="copy-btn" data-color="#FFEF92">복사</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>✍️ Font Hierarchy</h2>
+    <div class="font-sample">
+      <p class="h1-title">H1: 메인 타이틀 (56px / Bold)</p>
+      <p class="h2-title">H2: 서브 타이틀 (40px / Semi-Bold)</p>
+      <p class="h3-title">H3: 섹션 소제목 (28px / Medium)</p>
+      <p class="body-large">Body Large (18px / Regular)</p>
+      <p class="body">Body (16px / Regular)</p>
+      <p class="caption">Caption (12–14px / Light)</p>
+      <p class="button-text">Button (16px / Semi-Bold)</p>
+    </div>
+
+    <div class="font-download">
+      <a href="https://fonts.google.com/specimen/Source+Sans+3" target="_blank">Source Sans 3 보기</a>
+      <a href="https://fonts.google.com/specimen/Fredoka" target="_blank">Fredoka 보기</a>
+      <a href="/fonts/ChosunGulim.ttf" download>프리텐다드 다운로드</a>
+      <a href="/fonts/ChosunGulim.ttf" download>휴먼태둥근고딕</a>
+      <a href="/fonts/ChosunGulim.ttf" download>조선굴림체 다운로드</a>
+      <a href="/fonts/GowunDodum.ttf" download>고운돋움체 다운로드</a>
+
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const hex = button.getAttribute('data-color');
+        navigator.clipboard.writeText(hex).then(() => {
+          button.textContent = '복사됨!';
+          setTimeout(() => button.textContent = '복사', 1500);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
